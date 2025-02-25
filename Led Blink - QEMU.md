@@ -168,14 +168,14 @@ SECTIONS
 
 ## Compilation and Linking
 ```bash
-arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -O2 -ffreestanding main.c -o lm3s-complete.o
-arm-none-eabi-ld -T linker.ld lm3s-complete.o -o lm3s-complete.elf
-arm-none-eabi-objcopy -O binary lm3s-complete.elf lm3s-complete.bin
+arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -O2 -ffreestanding main.c -o main.o
+arm-none-eabi-ld -T linker.ld main.o -o firmware.elf
+arm-none-eabi-objcopy -O binary firmware.elf firmware.bin
 ```
 
 ## Running the Program
 ```bash
-qemu-system-arm -M lm3s6965evb -kernel lm3s-complete.elf -nographic
+qemu-system-arm -M lm3s6965evb -kernel firmware.elf -nographic
 ```
 
 This command will run the program in QEMU, and you should see UART output in your terminal indicating the status of the LED.
