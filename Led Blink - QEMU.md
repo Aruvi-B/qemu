@@ -179,6 +179,8 @@ qemu-system-arm -M lm3s6965evb -kernel firmware.elf
 ```
 
 This command will run the program in QEMU, and you should see UART output in your terminal indicating the status of the LED.
+## Output
+![image](https://github.com/user-attachments/assets/bfe9ce66-b0b9-4313-86ba-e4331d3ec869)
 
 ## Conclusion
 This project demonstrates how to create and run a simple LED blinking program on an emulated ARM Cortex-M3 using QEMU. With the provided source code and linker script, you can compile, link, and run the program to observe the simulated LED behavior and UART output.
