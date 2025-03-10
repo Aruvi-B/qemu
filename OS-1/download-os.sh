@@ -26,12 +26,32 @@ download_alpine() {
     echo "Alpine Linux downloaded and disk image created."
 }
 
+# Function to download Ubuntu Server
+download_ubuntu() {
+    echo "Downloading Ubuntu Server..."
+    wget https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-live-server-amd64.iso
+    
+    # Create a disk image to install Ubuntu on
+    qemu-img create -f qcow2 ubuntu.qcow2 4G
+    
+    echo "Ubuntu Server downloaded and disk image created."
+}
+# Function to create a custom empty disk image
+create_custom_disk() {
+    size=$1
+    name=$2
+    
+    qemu-img create -f qcow2 "${name}.qcow2" "${size}G"
+    echo "Empty disk image ${name}.qcow2 of size ${size}GB created."
+}
+
 # Main menu
 echo "Select an OS to download:"
 echo "1) TinyCore Linux"
 echo "2) Alpine Linux"
-echo "3) Custom (Create empty disk image)"
-read -p "Enter your choice (1-3): " choice
+echo "3) Ubuntu Server"
+echo "4) Custom (Create empty disk image)"
+read -p "Enter your choice (1-4): " choice
 
 case $choice in
     1)
@@ -41,10 +61,12 @@ case $choice in
         download_alpine
         ;;
     3)
+        download_ubuntu
+        ;;
+    4)
         read -p "Enter size in GB for the disk image: " size
         read -p "Enter name for the disk image (without extension): " name
-        qemu-img create -f qcow2 "${name}.qcow2" "${size}G"
-        echo "Empty disk image ${name}.qcow2 of size ${size}GB created."
+        create_custom_disk "$size" "$name"
         ;;
     *)
         echo "Invalid choice."
