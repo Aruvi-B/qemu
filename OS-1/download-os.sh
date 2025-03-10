@@ -36,6 +36,15 @@ download_ubuntu() {
     
     echo "Ubuntu Server downloaded and disk image created."
 }
+
+# Function to download Raspberry Pi OS
+download_raspberry_pi() {
+    echo "Downloading Raspberry Pi OS..."
+    wget https://downloads.raspberrypi.org/raspios_lite_armhf.tar.gz
+    
+    echo "Raspberry Pi OS downloaded. Note: This is a compressed archive."
+}
+
 # Function to create a custom empty disk image
 create_custom_disk() {
     size=$1
@@ -50,8 +59,9 @@ echo "Select an OS to download:"
 echo "1) TinyCore Linux"
 echo "2) Alpine Linux"
 echo "3) Ubuntu Server"
-echo "4) Custom (Create empty disk image)"
-read -p "Enter your choice (1-4): " choice
+echo "4) Raspberry Pi OS"
+echo "5) Custom (Create empty disk image)"
+read -p "Enter your choice (1-5): " choice
 
 case $choice in
     1)
@@ -64,6 +74,9 @@ case $choice in
         download_ubuntu
         ;;
     4)
+        download_raspberry_pi
+        ;;
+    5)
         read -p "Enter size in GB for the disk image: " size
         read -p "Enter name for the disk image (without extension): " name
         create_custom_disk "$size" "$name"
