@@ -40,9 +40,10 @@ download_ubuntu() {
 # Function to download Raspberry Pi OS
 download_raspberry_pi() {
     echo "Downloading Raspberry Pi OS..."
-    wget https://downloads.raspberrypi.org/raspios_lite_armhf.tar.gz
-    
-    echo "Raspberry Pi OS downloaded. Note: This is a compressed archive."
+    wget https://downloads.raspberrypi.org/raspios_lite_armhf_latest -O raspios-lite.img.xz
+    # Create a disk image to install Ubuntu on
+    qemu-img create -f qcow2 raspberry.qcow2 4G
+    echo "Raspberry Pi OS downloaded as raspios-lite.img.xz."
 }
 
 # Function to create a custom empty disk image
