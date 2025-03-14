@@ -1,5 +1,8 @@
 FROM ubuntu:22.04
 
+# Set the environment variable to avoid prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install QEMU and necessary tools
 RUN apt-get update && apt-get install -y \
     qemu-system-x86 \
@@ -11,8 +14,15 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     novnc \
     websockify \
+    locales \
     --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* 
+
+# Generate the locale and set it
+RUN locale-gen en_IN.UTF-8
+ENV LANG=en_IN.UTF-8 \
+    LANGUAGE=en_IN:en \
+    LC_ALL=en_IN.UTF-8
 
 # Create a working directory for OS images
 WORKDIR /os-exploration
